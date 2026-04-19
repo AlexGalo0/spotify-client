@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { getAuthToken } from '../../lib/api';
 import { Flame, Loader2, Music, Sparkles, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import BackButton from '../../components/BackButton';
