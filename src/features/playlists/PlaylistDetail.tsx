@@ -186,6 +186,7 @@ export default function PlaylistDetail() {
       const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:3000'}/api/ai/describe-playlist`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        credentials: 'include',
         body: JSON.stringify({
           playlistName: playlist.name,
           tracks: tracks

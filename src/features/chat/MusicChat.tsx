@@ -84,6 +84,7 @@ export default function MusicChat() {
            'Content-Type': 'application/json',
            'Authorization': `Bearer ${token}`
         },
+        credentials: 'include',
         body: JSON.stringify({
            message: userMessage.text,
            history: historyToSend,
