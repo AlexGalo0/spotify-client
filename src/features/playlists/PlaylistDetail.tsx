@@ -744,23 +744,23 @@ export default function PlaylistDetail() {
            </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center gap-2">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 w-full">
            <button
               onClick={() => {
                  if (!showFilters) loadAudioFeatures();
                  setShowFilters(!showFilters);
               }}
-              className={`flex items-center gap-2 px-4 py-3 rounded-full font-bold transition-all text-sm shadow-sm border ${showFilters ? 'bg-[#1DB954]/20 border-[#1DB954] text-[#1DB954]' : 'border-zinc-700 text-zinc-300 hover:bg-zinc-800'}`}
+              className={`flex items-center justify-center gap-2 px-4 py-3 rounded-full font-bold transition-all text-sm shadow-sm border w-full sm:w-auto ${showFilters ? 'bg-[#1DB954]/20 border-[#1DB954] text-[#1DB954]' : 'border-zinc-700 text-zinc-300 hover:bg-zinc-800'}`}
            >
               <SlidersHorizontal size={16} />
               Filtros Avanzados
            </button>
            
-           <div className="flex gap-2 w-full sm:w-auto">
+           <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 w-full sm:w-auto">
              <button
                onClick={() => confirmOrganizeAlphabetically('title')}
                disabled={organizing}
-               className="flex-1 sm:flex-none border border-zinc-700 hover:bg-zinc-800 hover:border-zinc-500 disabled:opacity-50 text-zinc-300 font-bold px-4 py-3 rounded-full transition-colors whitespace-nowrap text-sm shadow-sm"
+               className="w-full sm:w-auto border border-zinc-700 hover:bg-zinc-800 hover:border-zinc-500 disabled:opacity-50 text-zinc-300 font-bold px-4 py-3 rounded-full transition-colors whitespace-nowrap text-sm shadow-sm"
              >
                Sort A-Z Título
              </button>
@@ -768,25 +768,25 @@ export default function PlaylistDetail() {
              <button
                onClick={() => confirmOrganizeAlphabetically('artist')}
                disabled={organizing}
-               className="flex-1 sm:flex-none border border-zinc-700 hover:bg-zinc-800 hover:border-zinc-500 disabled:opacity-50 text-zinc-300 font-bold px-4 py-3 rounded-full transition-colors whitespace-nowrap text-sm shadow-sm"
+               className="w-full sm:w-auto border border-zinc-700 hover:bg-zinc-800 hover:border-zinc-500 disabled:opacity-50 text-zinc-300 font-bold px-4 py-3 rounded-full transition-colors whitespace-nowrap text-sm shadow-sm"
              >
                Sort A-Z Artista
              </button>
            </div>
 
-           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+           <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 w-full sm:w-auto">
              <button
                onClick={confirmOrganizeAlbum}
                disabled={organizing || tracks.length === 0}
-               className="flex-1 sm:flex-none bg-[#1DB954] hover:bg-[#1ed760] disabled:opacity-50 text-black font-extrabold px-6 py-3 rounded-full transition-transform active:scale-95 whitespace-nowrap text-sm shadow-lg shadow-[#1DB954]/20"
+               className="w-full sm:w-auto bg-[#1DB954] hover:bg-[#1ed760] disabled:opacity-50 text-black font-extrabold px-6 py-3 rounded-full transition-transform active:scale-95 whitespace-nowrap text-sm shadow-lg shadow-[#1DB954]/20"
              >
-               {organizing ? 'Aplicando en Spotify...' : 'Agrupar por Álbum'}
+               {organizing ? 'Aplicando...' : 'Agrupar por Álbum'}
              </button>
 
              <button
                onClick={confirmRemoveDuplicates}
                disabled={removingDuplicates || organizing || tracks.length === 0}
-               className="flex-1 sm:flex-none bg-zinc-800 hover:bg-red-500/10 border border-transparent hover:border-red-500/30 disabled:opacity-50 text-red-400 hover:text-red-500 font-extrabold px-6 py-3 rounded-full transition-all active:scale-95 whitespace-nowrap text-sm"
+               className="w-full sm:w-auto bg-zinc-800 hover:bg-red-500/10 border border-transparent hover:border-red-500/30 disabled:opacity-50 text-red-400 hover:text-red-500 font-extrabold px-6 py-3 rounded-full transition-all active:scale-95 whitespace-nowrap text-sm"
              >
                {removingDuplicates ? 'Eliminando...' : 'Quitar Duplicados'}
              </button>
@@ -794,24 +794,24 @@ export default function PlaylistDetail() {
              <button
                onClick={confirmSmartPurge}
                disabled={removingDuplicates || organizing || tracks.length === 0}
-               className="flex-1 sm:flex-none bg-zinc-900 border border-red-900/50 hover:bg-red-500/20 disabled:opacity-50 text-red-400 hover:text-red-500 font-extrabold px-6 py-3 rounded-full transition-all active:scale-95 whitespace-nowrap text-sm"
+               className="w-full sm:w-auto bg-zinc-900 border border-red-900/50 hover:bg-red-500/20 disabled:opacity-50 text-red-400 hover:text-red-500 font-extrabold px-6 py-3 rounded-full transition-all active:scale-95 whitespace-nowrap text-sm"
              >
                Purga Inteligente
              </button>
            </div>
 
-           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto mt-2 sm:mt-0 xl:ml-2">
+           <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 w-full sm:w-auto xl:ml-auto">
              <button
                onClick={confirmSmartCurator}
                disabled={organizing || tracks.length === 0}
-               className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:opacity-90 disabled:opacity-50 text-white font-black px-6 py-3 rounded-full transition-all active:scale-95 whitespace-nowrap text-sm shadow-lg shadow-purple-500/20"
+               className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:opacity-90 disabled:opacity-50 text-white font-black px-4 sm:px-6 py-3 rounded-full transition-all active:scale-95 whitespace-nowrap text-sm shadow-lg shadow-purple-500/20"
              >
                ✨ DJ Curator
              </button>
 
              <button
                onClick={() => navigate(`/roast/${id}`)}
-               className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:opacity-90 text-white font-black px-6 py-3 rounded-full transition-all active:scale-95 whitespace-nowrap text-sm shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2"
+               className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:opacity-90 text-white font-black px-4 sm:px-6 py-3 rounded-full transition-all active:scale-95 whitespace-nowrap text-sm shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2"
              >
                <Flame size={18} />
                Roast
