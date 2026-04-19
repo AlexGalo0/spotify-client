@@ -118,12 +118,6 @@ export default function Dashboard() {
                >
                   Merge Mágico
                </button>
-               <button 
-                  onClick={() => window.dispatchEvent(new Event('open-chat'))}
-                  className="bg-zinc-800 hover:bg-zinc-700 text-white font-extrabold px-6 py-4 rounded-full transition-all active:scale-95 flex items-center gap-2 whitespace-nowrap"
-               >
-                  ✨ AI Chat
-               </button>
             </div>
          </div>
 
