@@ -1,4 +1,5 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:3000';
+const RAW_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:3000';
+const API_URL = RAW_URL.replace(/\/$/, '');
 
 export async function getAuthToken(): Promise<string | null> {
   try {
