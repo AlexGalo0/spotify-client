@@ -680,7 +680,7 @@ export default function PlaylistDetail() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#0a0a0a] text-zinc-200 p-8 font-sans selection:bg-[#1DB954] selection:text-white pb-20 overflow-hidden">
+    <div className="relative min-h-screen bg-[#0a0a0a] text-zinc-200 p-4 md:p-8 font-sans selection:bg-[#1DB954] selection:text-white pb-20 overflow-x-hidden">
       
       {/* Custom Confirm Modal */}
       <ConfirmModal 
@@ -696,7 +696,7 @@ export default function PlaylistDetail() {
       <BackButton />
 
       {playlist && (
-        <header className="flex flex-col md:flex-row items-end gap-6 border-b border-zinc-800 pb-8 mb-8">
+        <header className="flex flex-col md:flex-row items-center md:items-end text-center md:text-left gap-6 border-b border-zinc-800 pb-8 mb-8 mt-4 md:mt-10 relative z-10">
           {playlist.images && playlist.images[0] ? (
             <img src={playlist.images[0].url} alt="Cover" className="w-48 h-48 shadow-2xl rounded-sm object-cover" />
           ) : (
@@ -704,11 +704,13 @@ export default function PlaylistDetail() {
                  <Loader2 size={40} className="text-zinc-500" />
              </div>
           )}
-          <div className="flex-1">
+          <div className="flex-1 flex flex-col items-center md:items-start w-full">
             <span className="text-xs uppercase font-bold tracking-widest text-zinc-500">Playlist Pública</span>
-            <h1 className="text-5xl md:text-7xl font-black mt-2 mb-4 tracking-tighter text-white">{playlist.name}</h1>
-            <div className="flex items-center gap-3">
-               <p className="text-zinc-400 font-medium">{playlist.description}</p>
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-black mt-2 mb-4 tracking-tighter text-white break-words w-full px-2 md:px-0">
+               {playlist.name}
+            </h1>
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-3 w-full">
+               <p className="text-zinc-400 font-medium px-2 md:px-0 text-sm md:text-base">{playlist.description}</p>
                <button 
                   onClick={generateAIDescription}
                   disabled={savingChanges || tracks.length === 0}
@@ -728,8 +730,8 @@ export default function PlaylistDetail() {
       )}
 
       {/* Smart Tools Bar */}
-      <div className="mb-8 p-6 bg-zinc-900/50 rounded-2xl border border-zinc-800/80 flex flex-col xl:flex-row xl:items-center justify-between gap-6 relative z-10">
-        <div className="flex-1 min-w-[300px]">
+      <div className="mb-8 p-4 md:p-6 bg-zinc-900/50 rounded-2xl border border-zinc-800/80 flex flex-col xl:flex-row xl:items-center justify-between gap-4 md:gap-6 relative z-10 overflow-hidden">
+        <div className="flex-1 w-full xl:min-w-[300px]">
            <div className="relative">
              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
              <input 
@@ -772,7 +774,7 @@ export default function PlaylistDetail() {
              </button>
            </div>
 
-           <div className="flex gap-2 w-full sm:w-auto">
+           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto mt-2 sm:mt-0">
              <button
                onClick={confirmOrganizeAlbum}
                disabled={organizing || tracks.length === 0}
@@ -798,7 +800,7 @@ export default function PlaylistDetail() {
              </button>
            </div>
 
-           <div className="flex gap-2 w-full sm:w-auto mt-2 sm:mt-0 xl:ml-2">
+           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto mt-2 sm:mt-0 xl:ml-2">
              <button
                onClick={confirmSmartCurator}
                disabled={organizing || tracks.length === 0}
