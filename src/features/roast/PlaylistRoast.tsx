@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getAuthToken } from '../../lib/api';
 import { Flame, Loader2, Music, Sparkles, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import BackButton from '../../components/BackButton';
@@ -25,9 +24,9 @@ export default function PlaylistRoast() {
   const [result, setResult] = useState<RoastResult | null>(null);
   const [step, setStep] = useState<'fetching' | 'analyzing' | 'done'>('fetching');
 
-  useState(() => {
+  useEffect(() => {
     startRoast();
-  });
+  }, []);
 
   const startRoast = async () => {
     setLoading(true);
