@@ -175,46 +175,6 @@ export default function PlaylistDetail() {
     finally { setSavingChanges(false); }
   };
 
-  // Generate AI Description
-  const generateAIDescription = async () => {
-    if (!playlist || tracks.length === 0) return;
-    setSavingChanges(true);
-    try {
-      const token = await getAuthToken();
-      if (!token) return;
-      
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:3000'}/api/ai/describe-playlist`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        credentials: 'include',
-        body: JSON.stringify({
-          playlistName: playlist.name,
-          tracks: tracks
-        })
-      });
-      
-      if (!res.ok) throw new Error('Error al generar descripción');
-      
-      const data = await res.json();
-      const newDesc = data.description;
-      
-      // Save it to Spotify
-      await fetch(`https://api.spotify.com/v1/playlists/${id}`, {
-        method: 'PUT',
-        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ description: newDesc, name: playlist.name, public: playlist.public })
-      });
-      
-      setPlaylist({ ...playlist, description: newDesc });
-      showNotification('¡Magia aplicada! ✨', 'La IA ha generado y guardado una nueva descripción para tu playlist.');
-    } catch (e) {
-      console.error(e);
-      showNotification('Error', 'No pudimos generar la descripción con IA.');
-    } finally {
-      setSavingChanges(false);
-    }
-  };
-
   // INFINITE SCROLL LOGIC
   const fetchMoreTracks = useCallback(async () => {
     if (!nextUrl || fetchingMore) return;
@@ -711,14 +671,6 @@ export default function PlaylistDetail() {
             </h1>
             <div className="flex flex-col md:flex-row items-center md:items-start gap-3 w-full">
                <p className="text-zinc-400 font-medium px-2 md:px-0 text-sm md:text-base">{playlist.description}</p>
-               <button 
-                  onClick={generateAIDescription}
-                  disabled={savingChanges || tracks.length === 0}
-                  title="Generar descripción con IA"
-                  className="p-1.5 rounded-full hover:bg-zinc-800 text-zinc-500 hover:text-[#1DB954] transition-colors disabled:opacity-50"
-               >
-                  {savingChanges ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
-               </button>
             </div>
             <div className="flex items-center gap-2 mt-2 text-sm">
               <span className="text-white font-bold">{playlist.owner.display_name}</span>
@@ -800,21 +752,13 @@ export default function PlaylistDetail() {
              </button>
            </div>
 
-           <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 w-full sm:w-auto xl:ml-auto">
+           <div className="grid grid-cols-1 md:flex md:flex-wrap gap-2 w-full sm:w-auto xl:ml-auto">
              <button
                onClick={confirmSmartCurator}
                disabled={organizing || tracks.length === 0}
                className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:opacity-90 disabled:opacity-50 text-white font-black px-4 sm:px-6 py-3 rounded-full transition-all active:scale-95 whitespace-nowrap text-sm shadow-lg shadow-purple-500/20"
              >
                ✨ DJ Curator
-             </button>
-
-             <button
-               onClick={() => navigate(`/roast/${id}`)}
-               className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:opacity-90 text-white font-black px-4 sm:px-6 py-3 rounded-full transition-all active:scale-95 whitespace-nowrap text-sm shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2"
-             >
-               <Flame size={18} />
-               Roast
              </button>
            </div>
         </div>
